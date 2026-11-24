@@ -31,6 +31,9 @@ return Application::configure(basePath: dirname(__DIR__))
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
 
+        // Una regla del negocio rechazada es un resultado esperado, no un fallo de la app.
+        $exceptions->dontReport(ReglaDeNegocioException::class);
+
         // Cualquier error de MariaDB que llegue sin capturar se traduce con el
         // mismo Adapter que usan los procedimientos.
         $exceptions->map(QueryException::class, fn (QueryException $e) => GatewayProcedimientos::traducir($e));
