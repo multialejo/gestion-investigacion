@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class LineaInvestigacion extends Model
+{
+    protected $table = 'linea_investigacion';
+
+    protected $primaryKey = 'id_linea';
+
+    public $timestamps = false;
+}

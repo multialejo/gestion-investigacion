@@ -13,8 +13,20 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        Inicio
                     </x-nav-link>
+                    @can('ver-proyectos')
+                        <x-nav-link :href="route('proyectos.index')" :active="request()->routeIs('proyectos.*', 'productos.*')">Proyectos</x-nav-link>
+                    @endcan
+                    @can('ver-reportes')
+                        <x-nav-link :href="route('reportes.index')" :active="request()->routeIs('reportes.*')">Reportes</x-nav-link>
+                    @endcan
+                    @can('ver-auditoria')
+                        <x-nav-link :href="route('auditoria')" :active="request()->routeIs('auditoria')">Auditoría</x-nav-link>
+                    @endcan
+                    @can('ver-mis-proyectos')
+                        <x-nav-link :href="route('mis-proyectos')" :active="request()->routeIs('mis-proyectos')">Mis proyectos</x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -23,7 +35,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>{{ Auth::user()->name }} <span class="ms-1 rounded bg-indigo-50 px-1.5 py-0.5 text-xs text-indigo-700">{{ Auth::user()->rol }}</span></div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -35,7 +47,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            Perfil
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -45,7 +57,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                Cerrar sesión
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -68,7 +80,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                Inicio
             </x-responsive-nav-link>
         </div>
 
@@ -81,7 +93,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    Perfil
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -91,7 +103,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        Cerrar sesión
                     </x-responsive-nav-link>
                 </form>
             </div>

@@ -52,6 +52,14 @@ return [
 
     'channels' => [
 
+        // Bitácora de la aplicación (ParticipacionObserver, patrón Observer).
+        'auditoria' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/auditoria.log'),
+            'level' => 'info',
+            'replace_placeholders' => true,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => explode(',', (string) env('LOG_STACK', 'single')),
