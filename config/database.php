@@ -3,6 +3,29 @@
 use Illuminate\Support\Str;
 use Pdo\Mysql;
 
+/*
+| Conexiones por rol (seguridad en doble capa).
+| Todas apuntan al esquema del negocio (gestion_investigacion) con una cuenta
+| de servicio MariaDB distinta: svc_secretaria hereda rol_secretaria, etc.
+| El middleware UsarConexionDeRol elige la conexión según el usuario autenticado,
+| de modo que los GRANT del motor limitan lo que cada rol puede hacer aunque
+| fallara la autorización de Laravel.
+*/
+$conexionDeRol = fn (string $rol) => [
+    'driver' => 'mariadb',
+    'host' => env('DB_HOST', '127.0.0.1'),
+    'port' => env('DB_PORT', '3306'),
+    'database' => env('DB_GESTION_DATABASE', 'gestion_investigacion'),
+    'username' => env('DB_'.strtoupper($rol).'_USERNAME', 'svc_'.$rol),
+    'password' => env('DB_'.strtoupper($rol).'_PASSWORD', ''),
+    'charset' => 'utf8mb4',
+    'collation' => 'utf8mb4_unicode_ci',
+    'prefix' => '',
+    'prefix_indexes' => true,
+    'strict' => true,
+    'engine' => null,
+];
+
 return [
 
     /*
@@ -83,6 +106,13 @@ return [
                 Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+
+        'rol_admin' => $conexionDeRol('admin'),
+        'rol_secretaria' => $conexionDeRol('secretaria'),
+        'rol_coordinador' => $conexionDeRol('coordinador'),
+        'rol_director' => $conexionDeRol('director'),
+        'rol_profesor' => $conexionDeRol('profesor'),
+        'rol_estudiante' => $conexionDeRol('estudiante'),
 
         'pgsql' => [
             'driver' => 'pgsql',
