@@ -7,17 +7,17 @@
         <x-tarjeta titulo="Sesión">
             <dl class="text-sm grid grid-cols-3 gap-y-2">
                 <dt class="text-gray-500">Usuario</dt><dd class="col-span-2">{{ $usuario->name }} ({{ $usuario->email }})</dd>
-                <dt class="text-gray-500">Rol en la aplicación</dt><dd class="col-span-2 font-semibold">{{ $usuario->rol }}</dd>
+                <dt class="text-gray-500">Rol en la aplicación</dt><dd class="col-span-2 font-semibold">{{ ucfirst($usuario->rol) }}</dd>
             </dl>
         </x-tarjeta>
 
-        <x-tarjeta titulo="Conexión a MariaDB de esta petición">
+        <x-tarjeta titulo="Mi acceso al sistema">
             <dl class="text-sm grid grid-cols-3 gap-y-2">
-                <dt class="text-gray-500">CURRENT_USER()</dt><dd class="col-span-2 font-mono">{{ $conexion->cuenta }}</dd>
-                <dt class="text-gray-500">CURRENT_ROLE()</dt><dd class="col-span-2 font-mono">{{ $conexion->rol }}</dd>
-                <dt class="text-gray-500">@app_usuario</dt><dd class="col-span-2 font-mono">{{ $conexion->persona }}</dd>
+                <dt class="text-gray-500">Cuenta de acceso</dt><dd class="col-span-2">{{ $conexion->cuenta }}</dd>
+                <dt class="text-gray-500">Perfil de acceso</dt><dd class="col-span-2">{{ $conexion->rol }}</dd>
+                <dt class="text-gray-500">Persona identificada</dt><dd class="col-span-2">{{ $conexion->persona }}</dd>
             </dl>
-            <p class="mt-3 text-xs text-gray-500">Los permisos de la base de datos dependen de esta cuenta de servicio, no solo de la aplicación.</p>
+            <p class="mt-3 text-xs text-gray-500">Lo que puede hacer en el sistema depende de su perfil de acceso.</p>
         </x-tarjeta>
     </div>
 

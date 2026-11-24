@@ -36,7 +36,7 @@ class EquipoController extends Controller
         $lineas = collect($datos['lineas'] ?? []);
 
         if ($miembros->isEmpty() && $lineas->isEmpty()) {
-            return back()->withErrors(['bd' => 'Seleccione al menos un profesor o una línea.']);
+            return back()->withErrors(['lote' => 'Seleccione al menos un profesor o una línea.']);
         }
 
         DB::transaction(function () use ($proyecto, $miembros, $lineas) {
@@ -48,6 +48,6 @@ class EquipoController extends Controller
             }
         });
 
-        return back()->with('status', "Lote confirmado (COMMIT): {$miembros->count()} participación(es) y {$lineas->count()} línea(s).");
+        return back()->with('status', "Se guardaron {$miembros->count()} integrante(s) del equipo y {$lineas->count()} línea(s) de investigación.");
     }
 }

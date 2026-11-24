@@ -26,7 +26,7 @@
                 <dt class="text-gray-500">Fin</dt><dd>{{ $proyecto->fin_pro->format('d/m/Y') }}</dd>
                 <dt class="text-gray-500">Prórroga</dt><dd>{{ $proyecto->prorroga?->format('d/m/Y') ?? '—' }}</dd>
                 <dt class="text-gray-500">Resolución</dt><dd>{{ $proyecto->resolucion_consejo_uni_aprobado }}</dd>
-                <dt class="text-gray-500">Productos</dt><dd>{{ $proyecto->resumen?->total_productos ?? 0 }} <span class="text-xs text-gray-400">(resumen_proyecto, mantenido por trigger)</span></dd>
+                <dt class="text-gray-500">Productos</dt><dd>{{ $proyecto->resumen?->total_productos ?? 0 }} <span class="text-xs text-gray-400">(se actualiza automáticamente)</span></dd>
             </dl>
             <p class="mt-4 text-sm text-gray-700">{{ $proyecto->descripcion }}</p>
             <h4 class="mt-4 font-semibold text-sm text-gray-700">Líneas de investigación</h4>
@@ -35,7 +35,7 @@
             </ul>
         </x-tarjeta>
 
-        <x-tarjeta titulo="Equipo (proyecto_profesor)" class="lg:col-span-2">
+        <x-tarjeta titulo="Equipo del proyecto" class="lg:col-span-2">
             <table class="min-w-full text-sm divide-y divide-gray-200">
                 <thead class="bg-gray-50 text-left text-gray-600"><tr><th class="px-2 py-2">Profesor</th><th class="px-2 py-2">Cargo</th><th class="px-2 py-2">Desde</th><th class="px-2 py-2">Hasta</th><th class="px-2 py-2">Resoluciones</th></tr></thead>
                 <tbody class="divide-y divide-gray-100">
@@ -85,7 +85,7 @@
     @can('modificar', $proyecto)
         <h3 class="mt-8 mb-3 font-semibold text-lg text-gray-800">Operaciones (secretaría)</h3>
         <div class="grid gap-6 lg:grid-cols-2">
-            <x-tarjeta titulo="Asignar equipo y líneas — un lote en DB::transaction()">
+            <x-tarjeta titulo="Asignar equipo y líneas de investigación">
                 <form method="POST" action="{{ route('proyectos.equipo', $proyecto) }}" class="space-y-3">
                     @csrf
                     @for ($i = 0; $i < 2; $i++)
@@ -109,7 +109,7 @@
             </x-tarjeta>
 
             <div class="space-y-6">
-                <x-tarjeta titulo="Prórroga — sp_control_prorroga_transaccional">
+                <x-tarjeta titulo="Prórroga">
                     <form method="POST" action="{{ route('proyectos.prorroga', $proyecto) }}" class="flex items-end gap-3">
                         @csrf
                         <div class="flex-1"><x-campo nombre="nueva_fecha_fin" etiqueta="Nueva fecha de fin" tipo="date" /></div>
@@ -125,8 +125,8 @@
                         <x-campo nombre="resolucion_ingreso" etiqueta="Resolución de ingreso" />
                         <div class="col-span-2"><x-campo nombre="motivo_salida" etiqueta="Motivo de salida" /></div>
                         <div class="col-span-2 flex flex-wrap gap-2">
-                            <button class="{{ $boton }}">Nuevo director (sp_cambio_director)</button>
-                            <button class="{{ $boton }} bg-slate-600 hover:bg-slate-700" formaction="{{ route('proyectos.relevo', $proyecto) }}">Subrogante asciende (sp_control_responsables)</button>
+                            <button class="{{ $boton }}">Nuevo director</button>
+                            <button class="{{ $boton }} bg-slate-600 hover:bg-slate-700" formaction="{{ route('proyectos.relevo', $proyecto) }}">Subrogante asume la dirección</button>
                         </div>
                     </form>
                 </x-tarjeta>
@@ -135,7 +135,7 @@
     @endcan
 
     @can('registrarCierre', $proyecto)
-        <x-tarjeta titulo="Cierre (administrador) — UPDATE con Eloquent, auditado por trigger" class="mt-6">
+        <x-tarjeta titulo="Cierre del proyecto (administrador)" class="mt-6">
             <form method="POST" action="{{ route('proyectos.cierre', $proyecto) }}" class="flex items-end gap-3">
                 @csrf
                 <div class="flex-1"><x-campo nombre="resolucion_cierre" etiqueta="Resolución de cierre del Consejo Universitario" /></div>
@@ -145,7 +145,7 @@
     @endcan
 
     @can('desvincular', $proyecto)
-        <x-tarjeta titulo="Desvincular personal — sp_desvincular_cierre_transaccional" class="mt-6">
+        <x-tarjeta titulo="Desvincular personal" class="mt-6">
             <form method="POST" action="{{ route('proyectos.desvincular', $proyecto) }}">
                 @csrf
                 <button class="{{ $boton }} bg-red-600 hover:bg-red-700">Desvincular profesores y estudiantes</button>

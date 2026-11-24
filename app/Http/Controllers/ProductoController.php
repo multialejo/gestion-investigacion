@@ -40,7 +40,7 @@ class ProductoController extends Controller
         Procedimientos::ejecutar(new RegistrarProducto($proyecto->id_proyecto, $estrategia, $datos));
 
         return redirect()->route('proyectos.show', $proyecto)
-            ->with('status', "{$estrategia->etiqueta()} registrada por sp_registrar_producto_transaccional.");
+            ->with('status', "{$estrategia->etiqueta()} registrada correctamente.");
     }
 
     public function editTipo(Request $request, Producto $producto)
@@ -65,6 +65,6 @@ class ProductoController extends Controller
         Procedimientos::ejecutar(new ReclasificarProducto($producto->id_producto, $estrategia, $datos));
 
         return redirect()->route('proyectos.show', $producto->id_proyecto)
-            ->with('status', "Producto reclasificado como {$estrategia->etiqueta()} por sp_reclasificar_producto_transaccional.");
+            ->with('status', "Producto reclasificado como {$estrategia->etiqueta()}.");
     }
 }

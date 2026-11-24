@@ -63,7 +63,7 @@ class ProyectoController extends Controller
         $proyecto = Proyecto::where('acronimo', $request->acronimo)->firstOrFail();
 
         return redirect()->route('proyectos.show', $proyecto)
-            ->with('status', "Proyecto {$proyecto->acronimo} registrado por sp_registrar_proyecto_transaccional.");
+            ->with('status', "Proyecto {$proyecto->acronimo} registrado correctamente.");
     }
 
     public function prorroga(Request $request, Proyecto $proyecto)
@@ -73,7 +73,7 @@ class ProyectoController extends Controller
 
         Procedimientos::ejecutar(new ControlProrroga($proyecto->id_proyecto, $datos['nueva_fecha_fin']));
 
-        return back()->with('status', 'Prórroga registrada por sp_control_prorroga_transaccional.');
+        return back()->with('status', 'Prórroga registrada correctamente.');
     }
 
     public function cambioDirector(Request $request, Proyecto $proyecto)
@@ -83,7 +83,7 @@ class ProyectoController extends Controller
 
         Procedimientos::ejecutar(new CambioDirector($proyecto->id_proyecto, $datos));
 
-        return back()->with('status', 'Cambio de director registrado por sp_cambio_director_transaccional.');
+        return back()->with('status', 'Cambio de director registrado correctamente.');
     }
 
     public function relevo(Request $request, Proyecto $proyecto)
@@ -93,7 +93,7 @@ class ProyectoController extends Controller
 
         Procedimientos::ejecutar(new ControlResponsables($proyecto->id_proyecto, $datos));
 
-        return back()->with('status', 'Relevo registrado por sp_control_responsables_transaccional: el subrogante asciende a director.');
+        return back()->with('status', 'Relevo registrado: el subrogante asume la dirección del proyecto.');
     }
 
     /** Rol admin: actualización con Eloquent → dispara trg_auditoria_proyecto_upd. */
@@ -104,7 +104,7 @@ class ProyectoController extends Controller
 
         $proyecto->update(['resolucion_consejo_uni_cierre' => $datos['resolucion_cierre']]);
 
-        return back()->with('status', 'Resolución de cierre registrada (ver auditoría: trg_auditoria_proyecto_upd).');
+        return back()->with('status', 'Cierre del proyecto registrado (puede consultarlo en Auditoría).');
     }
 
     public function desvincular(Proyecto $proyecto)
@@ -113,7 +113,7 @@ class ProyectoController extends Controller
 
         Procedimientos::ejecutar(new DesvincularCierre($proyecto->id_proyecto));
 
-        return back()->with('status', 'Personal desvinculado por sp_desvincular_cierre_transaccional.');
+        return back()->with('status', 'Personal desvinculado correctamente.');
     }
 
     private function validarRelevo(Request $request, Proyecto $proyecto, string $cargo): array

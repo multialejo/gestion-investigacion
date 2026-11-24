@@ -17,6 +17,6 @@ class AccesoDenegadoBdException extends AccessDeniedHttpException
 
     public static function desde(QueryException $e): self
     {
-        return new self('La base de datos denegó la operación: '.($e->errorInfo[2] ?? ''), $e);
+        return new self('No tiene permiso para realizar esta operación.', $e);
     }
 }

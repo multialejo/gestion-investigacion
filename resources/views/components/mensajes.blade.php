@@ -6,8 +6,8 @@
 @if ($errors->any())
     <div class="mb-4 rounded-md bg-red-50 border border-red-200 p-4 text-sm text-red-800" role="alert">
         @if ($errors->has('bd'))
-            <p class="font-semibold">La base de datos rechazó la operación:</p>
-            <p class="mt-1 font-mono">{{ $errors->first('bd') }}</p>
+            <p class="font-semibold">No se pudo completar la operación:</p>
+            <p class="mt-1">{{ $errors->first('bd') }}</p>
         @else
             <p class="font-semibold">Revise los datos del formulario:</p>
             <ul class="mt-1 list-disc ps-5">

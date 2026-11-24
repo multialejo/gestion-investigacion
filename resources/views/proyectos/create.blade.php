@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Registrar proyecto</h2>
-        <p class="text-sm text-gray-500">Se ejecuta <code>sp_registrar_proyecto_transaccional</code>: crea el proyecto, la participación del investigador principal como Director y el resumen en una sola transacción.</p>
+        <p class="text-sm text-gray-500">Al registrarlo se crea el proyecto y su investigador principal queda asignado como Director.</p>
     </x-slot>
 
     <x-tarjeta>

@@ -5,8 +5,7 @@
             {{ $reclasificar ? 'Reclasificar producto' : 'Registrar producto' }} · {{ $proyecto->acronimo }}
         </h2>
         <p class="text-sm text-gray-500">
-            Estrategia: <code>{{ class_basename($estrategia) }}</code> →
-            <code>{{ $reclasificar ? 'sp_reclasificar_producto_transaccional' : 'sp_registrar_producto_transaccional' }}</code>
+            {{ $reclasificar ? 'Cambie el tipo del producto; se conservarán los datos comunes.' : 'Complete los datos del nuevo producto.' }}
         </p>
     </x-slot>
 

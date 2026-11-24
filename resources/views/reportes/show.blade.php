@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ strtoupper($codigo) }} · {{ $titulo }}</h2>
-        <p class="text-sm text-gray-500"><code>CALL {{ $sp }}({{ implode(', ', array_map(fn ($p) => $argumentos[$p], array_keys($parametros))) }})</code></p>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ $titulo }}</h2>
     </x-slot>
     @if ($parametros)
         <x-tarjeta class="mb-6">
@@ -18,7 +17,7 @@
         </x-tarjeta>
     @endif
     <x-tarjeta>
-        <p class="mb-3 text-xs text-gray-500">{{ $filas->count() }} fila(s)</p>
+        <p class="mb-3 text-xs text-gray-500">{{ $filas->count() }} resultado(s)</p>
         <x-tabla :filas="$filas" />
     </x-tarjeta>
     <a href="{{ route('reportes.index') }}" class="mt-4 inline-block text-sm text-indigo-700">← Todos los reportes</a>
