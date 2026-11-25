@@ -9,7 +9,7 @@ use Tests\TestCase;
 /*
 | RefreshDatabase solo afecta a la conexión por defecto de las pruebas
 | (esquema `testing`, tablas de Laravel). El esquema del negocio
-| (gestion_investigacion) se carga con ../db/recargar.sh y NO se borra:
+| (gestion_investigacion) se carga con db/recargar.sh y NO se borra:
 | sus SP, triggers y roles son justamente lo que se prueba.
 */
 pest()->extend(TestCase::class)

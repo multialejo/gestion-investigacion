@@ -16,14 +16,14 @@ Solo **Docker** (no hace falta PHP ni Composer en el equipo).
 ```bash
 # 1. dependencias (una vez)
 docker run --rm -u "$(id -u):$(id -g)" -v "$PWD":/app -w /app laravelsail/php84-composer:latest composer install
-cp .env.example .env        # completar DB_PASSWORD y DB_<ROL>_PASSWORD (ver ../db/adaptaciones_laravel.sql)
+cp .env.example .env        # completar DB_PASSWORD y DB_<ROL>_PASSWORD (ver db/adaptaciones_laravel.sql)
 
 # 2. contenedores
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan key:generate
 
 # 3. base de datos del negocio (respaldo + adaptaciones para Laravel)
-../db/recargar.sh
+db/recargar.sh
 
 # 4. tablas de Laravel y usuarios
 ./vendor/bin/sail artisan migrate --seed
@@ -61,7 +61,7 @@ Observer (`ParticipacionObserver`), Chain of Responsibility (middleware).
 ## Pruebas
 
 ```bash
-../db/recargar.sh && ./vendor/bin/sail artisan test
+db/recargar.sh && ./vendor/bin/sail artisan test
 ```
 
 67 pruebas (Pest): seguridad en las dos capas, procedimientos, triggers y transacciones.
