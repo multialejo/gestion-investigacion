@@ -32,6 +32,19 @@ db/recargar.sh
 
 Abrir <http://localhost>.
 
+## phpMyAdmin
+
+`sail up -d` también levanta phpMyAdmin en <http://localhost:8080>, accesible solo desde este equipo.
+Para usar otro puerto, cambiar `FORWARD_PHPMYADMIN_PORT` en `.env`.
+
+Se ingresa con una cuenta de MariaDB:
+
+- `root` con `DB_PASSWORD`: acceso completo a `laravel_app` y `gestion_investigacion`.
+- `svc_<rol>` (p. ej. `svc_secretaria`) con su `DB_<ROL>_PASSWORD`: permite comprobar los permisos
+  de cada rol (el de `svc_director` está en `DB_DIRECTOR_PASSWORD`).
+
+Los usuarios de prueba de la aplicación no son cuentas de MariaDB y no sirven aquí.
+
 ## Usuarios de prueba
 
 | Rol | Correo | Contraseña |
